@@ -1,1 +1,19 @@
 @CHARSET "ISO-8859-1";
+.error{
+	border: 1px dashed red;
+	color: red;
+	margin: 5px;
+	padding: 5px;
+	text-align:center;
+}
+.table{
+	display:table;
+	overflow: hidden;
+}
+.row{
+	display:table-row;
+}
+.col{
+	display:table-cell;
+	padding: 5px;
+}
