@@ -8,10 +8,24 @@
 		<link rel=StyleSheet href="lib/css/style.css" type="text/css" media=screen />
 	</head>
 	<body>
-		<div>
+		<?php
+		if (isset($_SESSION['id_entity'])) {
+		?>
+			<div class="menu">
+				<ul class="horizontal">
+					<li><a href="main.php">Principal</a></li>
+					<li><a href="pages.php">P&aacute;ginas</a></li>
+					<li><a href="close_session.php">Cerrar Sesión</a></li>
+				</ul>
+			</div>
+		<?php	
+		}
+		?>
+		<fieldset id="content">
+			<legend align="right"><?=$title?></legend>
 			<div>
 				<?php include $body?>
 			</div>
-		</div>
+		</fieldset>
 	</body>
 </html>

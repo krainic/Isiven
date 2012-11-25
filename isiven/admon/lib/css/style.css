@@ -1,4 +1,46 @@
 @CHARSET "ISO-8859-1";
+*{
+	font-family: "Meiryo UI", Arial, Helvetica, sans-serif;
+}
+body{
+	padding: 0px;
+	margin: 0px;
+}
+input[type=text], input[type=password], select, textarea{
+	width: 100%;
+	padding: 5px;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+button, input[type=submit], input[type=button]{
+	cursor: pointer;
+	background: #FFFFFF;
+	padding: 10px 20px;
+	color: #333333;
+	border:1px solid #CCCCCC;
+	border-radius: 5px;
+	font-size:1.3em;
+}
+button:hover, input[type=submit]:hover, input[type=button]:hover{
+	background: #333333;
+	color: #FFFFFF;
+	border:1px solid #333333;
+}
+a{
+	color: #ffffff;
+}
+a:hover{
+	color: #E5E5E5;
+}
+fieldset{
+	border:1px solid #CCCCCC;
+	border-radius: 10px;
+	margin: 10px 1.5em;
+}
+fieldset legend{
+	font-size: 2em;
+	color:#222222;
+}
 .error{
 	border: 1px dashed red;
 	color: red;
@@ -8,7 +50,7 @@
 }
 .table{
 	display:table;
-	overflow: hidden;
+	width:80%;
 }
 .row{
 	display:table-row;
@@ -16,4 +58,31 @@
 .col{
 	display:table-cell;
 	padding: 5px;
+}
+.menu{
+	padding: 5px;
+	background:#1C4B9D;
+	width:100%;
+	display:table;
+}
+.menu ul{
+	list-style: none;
+	margin:0px;
+	padding:0px;
+}
+.menu li a{
+	text-decoration:none;
+}
+.menu .horizontal ul{
+	display:table-row;
+}
+.menu .horizontal li{
+	padding: 5px;
+	display:table-cell;
+}
+.menu .horizontal li a{
+	text-decoration:none;
+}
+#content{
+	padding: 10px;
 }

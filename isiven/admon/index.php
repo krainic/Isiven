@@ -1,4 +1,4 @@
 <?php
-	$title = "- Principal";
+	$title = "Login";
 	$body = "index_body.php";
 	include 'template.php';

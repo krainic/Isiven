@@ -29,7 +29,7 @@
 				<div class="col" align="left"><label>Clave</label></div> <div class="col"><input type="password" name="pass" /></div>
 			</div>
 			<div class="row">
-				<div class="col">&nbsp;</div> <div class="col"><input type="submit" name="save" value="Guardar" /></div>
+				<div class="col">&nbsp;</div> <div class="col" align="right"><input type="submit" name="save" value="Guardar" /></div>
 			</div>
 		</div>
 	</form>
