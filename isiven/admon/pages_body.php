@@ -7,7 +7,7 @@
 			$lang = utf8_encode($_REQUEST['lang']);
 			$filename = utf8_encode($_REQUEST['filename']);
 			$title = utf8_encode($_REQUEST['title']);
-			$body = $_REQUEST['body'];
+			$body = utf8_encode('<fieldset><legend align="right">'. $title .'</legend>'. $_REQUEST['body'] .'</fieldset>');
 
 			$query = "INSERT INTO pages (lang, title, filename, body, status_id, date_admission)VALUES('$lang', '$title', '$filename', '$body', '2', NOW());";
 			$result = mysql_query($query);
@@ -31,7 +31,7 @@
 			$lang = utf8_encode($_REQUEST['lang']);
 			$filename = utf8_encode($_REQUEST['filename']);
 			$title = utf8_encode($_REQUEST['title']);
-			$body = $_REQUEST['body'];
+			$body = utf8_encode($_REQUEST['body']);
 			$oldFile = utf8_encode($_REQUEST['editFile']);
 			$status = $_REQUEST['editStatus'];
 			$id = $_REQUEST['editId'];
@@ -168,7 +168,7 @@
 				<div class="col" align="left" style="vertical-align: top;"><label for="body">Contenido</label></div>
 				<div class="col" align="right" style="vertical-align: top;">
 					<textarea id="body" name="body" rows="15" cols="80" style="width: 100%">
-						<?=(isset($rowEdit))?$rowEdit['body']:''?>
+						<?=(isset($rowEdit))?utf8_decode($rowEdit['body']):''?>
 					</textarea>
 				</div>
 			</div>
@@ -209,7 +209,7 @@
 	<div class="row">
 		<div class="col" align="center"><?=utf8_decode($rowPages['lang'])?></div>
 		<div class="col" align="center"><?=utf8_decode($rowPages['title'])?></div>
-		<div class="col <?=($status_id == 2)?"text-process":($status_id == 3)?"text-success":($status_id == 4)?"text-error":""?>" align="center" title="<?=$rowStatus['description']?>"><?=utf8_decode($rowStatus['name'])?></div>
+		<div class="col <?=($status_id == 2)?"text-process":($status_id == 3)?"text-success":($status_id == 4)?"text-error":""?>" align="center" title="<?=utf8_decode($rowStatus['description'])?>"><?=utf8_decode($rowStatus['name'])?></div>
 		<div class="col" align="center">
 			<?php if ($status_id == 2) {?>
 				<a href="?status=<?=$rowPages['status_id']?>&id=<?=$rowPages['id']?>" class="bgWhite">Publicar</a> -
