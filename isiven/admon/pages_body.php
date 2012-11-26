@@ -47,12 +47,12 @@
 						
 						echo '<div class="success">Su p&aacute;gina se a editado correctamente, pero debe publicarse para que se vea al p&uacute;blico.</div>';
 					}else
-						echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div>';
+						echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div> <br>Referencia: '. base64_encode('creando archivo') .'';
 				}else
-					echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div>';
+					echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div> <br>Referencia: '. base64_encode('renombrando archivo') .'';
 			}
 			else
-				echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div>';
+				echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div> <br>Referencia: '. base64_encode('actualizando archivo') .'';
 		}
 	}
 	if(isset($_REQUEST['status'])){
@@ -64,7 +64,7 @@
 		if($result)
 			echo '<div class="success">Su p&aacute;gina se a publicado correctamente.</div>';
 		else
-			echo '<div class="error">Hubo un error al publicarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div>';
+			echo '<div class="error">Hubo un error al publicarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div> <br>Referencia: '. base64_encode('actualizando estado') .'';
 	}
 	if(isset($_REQUEST['mod'])){
 		if ($_REQUEST['mod'] == 'edit') {
@@ -85,9 +85,9 @@
 				if(mysql_query($qryRemove))
 					echo '<div class="success">Su p&aacute;gina se elimin&oacute; correctamente.</div>';
 				else
-					echo '<div class="error">Hubo un error al publicarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div>';
+					echo '<div class="error">Hubo un error al publicarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div> <br>Referencia: '. base64_encode('eliminando registro') .'';
 			}else
-				echo '<div class="error">Hubo un error al publicarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div>';
+				echo '<div class="error">Hubo un error al publicarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div> <br>Referencia: '. base64_encode('eliminando archivo') .'';
 			
 		}
 	}
