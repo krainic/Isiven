@@ -14,23 +14,30 @@ input[type=text], input[type=password], select, textarea{
 }
 button, input[type=submit], input[type=button]{
 	cursor: pointer;
-	background: #FFFFFF;
 	padding: 10px 20px;
-	color: #333333;
-	border:1px solid #CCCCCC;
 	border-radius: 5px;
 	font-size:1.3em;
-}
-button:hover, input[type=submit]:hover, input[type=button]:hover{
 	background: #333333;
 	color: #FFFFFF;
 	border:1px solid #333333;
+}
+button:hover, input[type=submit]:hover, input[type=button]:hover{
+	background: #FFFFFF;
+	color: #333333;
+	border:1px solid #CCCCCC;
 }
 a{
 	color: #ffffff;
 }
 a:hover{
 	color: #E5E5E5;
+}
+a.bgWhite{
+	color: #222;
+	text-decoration: none;
+}
+a.bgWhite:hover{
+	color: #999;
 }
 fieldset{
 	border:1px solid #CCCCCC;
@@ -40,6 +47,29 @@ fieldset{
 fieldset legend{
 	font-size: 2em;
 	color:#222222;
+}
+.text-process{
+	color: #B3A11D;
+}
+.process{
+	border: 1px dashed #B3A11D;
+	color: #B3A11D;
+	margin: 5px;
+	padding: 5px;
+	text-align:center;
+}
+.text-success{
+	color: green;
+}
+.success{
+	border: 1px dashed green;
+	color: green;
+	margin: 5px;
+	padding: 5px;
+	text-align:center;
+}
+.text-error{
+	color: red;
 }
 .error{
 	border: 1px dashed red;
@@ -58,6 +88,11 @@ fieldset legend{
 .col{
 	display:table-cell;
 	padding: 5px;
+	border: 1px solid #E5E5E5;
+}
+.col .text-info{
+	font-size: 9px;
+	font-style:italic;
 }
 .menu{
 	padding: 5px;

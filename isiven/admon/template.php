@@ -1,9 +1,12 @@
 <?php include 'cnx.php';?>
+<?php include 'functions.php';?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>:: Isiven <?=$title?>::</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>:: ISIVEN <?=$title?>::</title>
 		<link rel=StyleSheet href="lib/css/style.css" type="text/css" media=screen />
 	</head>
 	<body>
@@ -20,6 +23,7 @@
 		<?php	
 		}
 		?>
+		<div style="padding: 2em;" align="center"><img src="http://isiven.krainic.com/files/imgs/logo.png" /></div>
 		<fieldset id="content">
 			<legend align="right"><?=$title?></legend>
 			<div>
