@@ -2,4 +2,4 @@
 <div align="center">
 	Bienvenido
 </div>
-<?php }?>
+<?php }else header("Location: index.php")?>
