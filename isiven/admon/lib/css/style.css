@@ -71,6 +71,7 @@ fieldset legend{
 	padding:0px;
 }
 .menu li a{
+	background: #2B6FB6;
 	text-decoration:none;
 }
 .menu .horizontal ul{
@@ -81,6 +82,8 @@ fieldset legend{
 	display:table-cell;
 }
 .menu .horizontal li a{
+	background: #2B6FB6;
+	padding: 5px 10px;
 	text-decoration:none;
 }
 #content{

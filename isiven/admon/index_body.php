@@ -6,13 +6,13 @@
 			$user_mail = $_REQUEST['user'];
 			$pass = $_REQUEST['pass'];
 
-			$query = "SELECT * FROM entities WHERE (user = '$user_mail'OR mail = '$user_mail') AND pass = '$pass' AND type_id = 1;";
+			$query = "SELECT * FROM entities WHERE (user = '$user_mail' OR mail = '$user_mail') AND pass = md5('$pass') AND type_id = 1;";
 			$result = mysql_query($query);
 			$row = mysql_fetch_array($result);
 			
 			if(mysql_num_rows($result) > 0){
 				$_SESSION['id_entity'] = $row['id'];
-				
+
 				header("location: main.php");
 			}else
 				echo '<div class="error">El usuario o clave no son validos.</div>';

@@ -77,6 +77,14 @@
 	<form method="post">
 		<div class="table">
 			<div class="row">
+				<div class="col" align="left" style="vertical-align: top;"><label>Idioma</label></div>
+				<div class="col" align="right" style="vertical-align: top;">
+					<select name="lang">
+						<option value="es">Espa&ntilde;ol</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col" align="left" style="vertical-align: top;"><label>T&iacute;tulo</label></div> <div class="col" align="right" style="vertical-align: top;"><input type="text" name="title" /></div>
 			</div>
 			<div class="row">
