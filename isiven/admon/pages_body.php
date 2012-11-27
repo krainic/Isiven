@@ -19,9 +19,9 @@
 					
 					echo '<div class="success">Su p&aacute;gina se a guardado correctamente, pero debe publicarse para que se vea al p&uacute;blico.</div>';
 				}else
-					echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>. <br>Referencia: '. base64_encode('creando archivo') .'</div>';
+					echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('creando archivo') .'</div>';
 			}else
-				echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>. <br>Referencia: '. base64_encode('agregando archivo') .'</div>';
+				echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('agregando archivo') .'</div>';
 		}
 	}
 	if(isset($_REQUEST['edit'])){
@@ -47,12 +47,12 @@
 						
 						echo '<div class="success">Su p&aacute;gina se a editado correctamente, pero debe publicarse para que se vea al p&uacute;blico.</div>';
 					}else
-						echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div> <br>Referencia: '. base64_encode('creando archivo') .'';
+						echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('creando archivo') .'</div>';
 				}else
-					echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div> <br>Referencia: '. base64_encode('renombrando archivo') .'';
+					echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('renombrando archivo') .'</div>';
 			}
 			else
-				echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div> <br>Referencia: '. base64_encode('actualizando archivo') .'';
+				echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('actualizando archivo') .'</div>';
 		}
 	}
 	if(isset($_REQUEST['status'])){
@@ -64,7 +64,7 @@
 		if($result)
 			echo '<div class="success">Su p&aacute;gina se a publicado correctamente.</div>';
 		else
-			echo '<div class="error">Hubo un error al publicarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div> <br>Referencia: '. base64_encode('actualizando estado') .'';
+			echo '<div class="error">Hubo un error al publicarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('actualizando estado') .'</div>';
 	}
 	if(isset($_REQUEST['mod'])){
 		if ($_REQUEST['mod'] == 'edit') {
@@ -85,9 +85,9 @@
 				if(mysql_query($qryRemove))
 					echo '<div class="success">Su p&aacute;gina se elimin&oacute; correctamente.</div>';
 				else
-					echo '<div class="error">Hubo un error al publicarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div> <br>Referencia: '. base64_encode('eliminando registro') .'';
+					echo '<div class="error">Hubo un error al eliminarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('eliminando registro') .'</div>';
 			}else
-				echo '<div class="error">Hubo un error al publicarse por favor comuniquese con el administrador del sitio <a href="mailto:ceo@krainic.com" class="bgWhite">ceo@krainic.com</a>.</div> <br>Referencia: '. base64_encode('eliminando archivo') .'';
+				echo '<div class="error">Hubo un error al eliminarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('quitando archivo') .'</div>';
 			
 		}
 	}
@@ -225,4 +225,4 @@
 </body>
 </html>
 
-<?php }else header("Location: index.php")?>
+<?php }else echo '<script>window.location = "./"</script>'?>

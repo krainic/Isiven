@@ -2,4 +2,4 @@
 <div align="center">
 	Bienvenido
 </div>
-<?php }else header("Location: index.php")?>
+<?php }else echo '<script>window.location = "./"</script>'?>

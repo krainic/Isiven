@@ -7,7 +7,7 @@ body{
 	margin: 0px;
 }
 input[type=text], input[type=password], select, textarea{
-	width: 100%;
+	width: 90%;
 	padding: 5px;
 	border-radius: 5px;
 	border: 1px solid #CCCCCC;
@@ -94,6 +94,9 @@ fieldset legend{
 	font-size: 9px;
 	font-style:italic;
 }
+#content{
+	padding: 10px;
+}
 .menu{
 	padding: 5px;
 	background:#1C4B9D;
@@ -121,6 +124,90 @@ fieldset legend{
 	padding: 5px 10px;
 	text-decoration:none;
 }
-#content{
-	padding: 10px;
+
+/* si es necesario, evitamos que Blogger de problemas con los saltos de línea cuando escribimos el HTML */
+.nav-menu  br { display:none; }
+
+/* cada item del menu */
+.nav-menu  li {
+height: 40px;
+list-style: none;
+margin: 0;
+padding: 0;
+position: relative;
 }
+.nav-menu li a {
+background:none;
+display: block;
+padding: 0 14px;
+margin: 0;
+text-decoration: none;
+/* animamos el cambio de color de los textos */
+-webkit-transition: color .2s ease-in-out;
+-moz-transition: color .2s ease-in-out;
+-o-transition: color .2s ease-in-out;
+-ms-transition: color .2s ease-in-out;
+transition: color .2s ease-in-out;
+}
+/* eliminamos los bordes del primer y el último */
+.nav-menu li:first-child a { border-left: none; padding-left:2em; padding-right:10px; }
+.nav-menu li:last-child a{ border-right: none; padding-left:2em; padding-right:10px; }
+/* efecto hover cambia el color */
+.nav-menu li:hover > a { color: #007FFF; }
+
+/* los submenús */
+.nav-menu ul {
+z-index:5000;
+margin: 0;
+left: 0;
+padding: 0;
+opacity: 0; /* no son visibles */
+position: absolute;
+top: 40px; /* se ubican debajo del enlace principal */
+/* el color de fondo */
+background: #153A77;
+background: -moz-linear-gradient(red,#1C4B9D);
+background: -webkit-linear-gradient(#153A77,#1C4B9D);
+background: -o-linear-gradient(#153A77,#1C4B9D);
+background: -ms-linear-gradient(#153A77,#1C4B9D);
+background: linear-gradient(#153A77,#1C4B9D);
+/* animamos su visibildiad */
+-moz-transition: opacity .25s ease .1s;
+-webkit-transition: opacity .25s ease .1s;
+-o-transition: opacity .25s ease .1s;
+-ms-transition: opacity .25s ease .1s;
+transition: opacity .25s ease .1s;
+}
+.nav-menu.nav-right ul{
+	left:inherit;
+	right: 0;
+}
+/* son visibes al poner el cursor encima */
+.nav-menu li:hover > ul { opacity: 1; }
+
+/* cada un ode los items de los submenús */
+.nav-menu ul li {
+height: 0; /* no son visibles */
+overflow: hidden;
+margin: 0;
+padding: 0;
+/* animamos su visibildiad */
+-moz-transition: height .25s ease .1s;
+-webkit-transition: height .25s ease .1s;
+-o-transition: height .25s ease .1s;
+-ms-transition: height .25s ease .1s;
+transition: height .25s ease .1s;
+}
+.nav-menu li:hover > ul li {
+z-index:5000;
+height: 36px; /* los mostramos */
+overflow: visible;
+padding: 0;
+}
+.nav-menu ul li a {
+border: none;
+/* el ancho dependerá de los textos a utilizar */
+padding: 5px;
+}
+/* el último n otiene un borde */
+.nav-menu ul li:last-child a { border: none; }

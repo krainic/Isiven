@@ -1,3 +1,4 @@
+<?php if(! $_SESSION['id_entity']){?>
 <?php
 	if(isset($_REQUEST['save'])){
 		if ($_REQUEST['user'] == '' || $_REQUEST['pass'] == '')
@@ -12,13 +13,15 @@
 			
 			if(mysql_num_rows($result) > 0){
 				$_SESSION['id_entity'] = $row['id'];
-
-				header("location: main.php");
+				
+				echo '<script>window.location = "main.php"</script>';
+				header("Location: main.php");
 			}else
 				echo '<div class="error">El usuario o clave no son validos.</div>';
 		}
 	}
 ?>
+
 <div align="center">
 	<form method="post">
 		<div class="table">
@@ -34,3 +37,4 @@
 		</div>
 	</form>
 </div>
+<?php }else echo '<script>window.location = "main.php"</script>'?>

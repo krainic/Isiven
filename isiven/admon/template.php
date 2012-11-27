@@ -1,5 +1,12 @@
 <?php include 'cnx.php';?>
 <?php include 'functions.php';?>
+<?php
+if (isset($_SESSION['id_entity'])) {
+	$qryEntity_main = "SELECT * FROM entities WHERE id = ".$_SESSION['id_entity'].";";
+	$rstEntity_main = mysql_query($qryEntity_main);
+	$rowEntity_main = mysql_fetch_array($rstEntity_main);
+}
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -13,11 +20,23 @@
 		if (isset($_SESSION['id_entity'])) {
 		?>
 			<div class="menu">
-				<ul class="horizontal">
-					<li><a href="main.php">Principal</a></li>
-					<li><a href="pages.php">P&aacute;ginas</a></li>
-					<li><a href="close_session.php">Cerrar Sesión</a></li>
-				</ul>
+				<div class="col" style="border: none; width: 80%;">
+					<ul class="horizontal">
+						<li><a href="main.php">Principal</a></li>
+						<li><a href="pages.php">P&aacute;ginas</a></li>
+					</ul>
+				</div>
+				<div class="col" align="right" style="border: none;">
+					<ul class="nav-menu nav-right">
+						<li>
+							<a href="#"><span style="color: #00ffff;">Hola</span> <span style="color: #FFFFFF;"><?=utf8_decode($rowEntity_main['fname'])?> <?=utf8_decode($rowEntity_main['lname'])?></span> <img src="../files/imgs/<?=$rowEntity_main['image']?>" height="30" style="vertical-align: middle;" /></a>
+							<ul>
+								<!--li><a href="close_session.php">Editar Perfíl</a></li-->
+								<li><a href="close_session.php">Cerrar Sesión</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
 			</div>
 		<?php	
 		}
