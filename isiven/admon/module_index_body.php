@@ -14,14 +14,8 @@
 			$query = "INSERT INTO pages (lang, title, filename, body, status_id, entities_id, date_admission)VALUES('$lang', '$title', '$filename', '$body', 2, $entity_id, NOW());";
 			$result = mysql_query($query);
 			
-			if($result){
-				if($fp = fopen('../cloud_'. clear_for_file($filename) .'.php', 'w')){
-					fwrite($fp, $body);
-					fclose($fp);
-					
-					echo '<div class="success">Su p&aacute;gina se a guardado correctamente, pero debe publicarse para que se vea al p&uacute;blico.</div>';
-				}else
-					echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('creando archivo') .'</div>';
+			if($result){					
+				echo '<div class="success">Su p&aacute;gina se a guardado correctamente, pero debe publicarse para que se vea al p&uacute;blico.</div>';
 			}else
 				echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('agregando archivo') .'</div>';
 		}
@@ -42,18 +36,8 @@
 			$result = mysql_query($query);
 			
 			if($result){
-				if(rename('../cloud_'. clear_for_file($oldFile) .'.php', '../cloud_'. clear_for_file($title) .'.php')){
-					if($fp = fopen('../cloud_'. clear_for_file($filename) .'.php', 'w')){
-						fwrite($fp, $body);
-						fclose($fp);
-						
-						echo '<div class="success">Su p&aacute;gina se a editado correctamente, pero debe publicarse para que se vea al p&uacute;blico.</div>';
-					}else
-						echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('creando archivo') .'</div>';
-				}else
-					echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('renombrando archivo') .'</div>';
-			}
-			else
+				echo '<div class="success">Su p&aacute;gina se a editado correctamente, pero debe publicarse para que se vea al p&uacute;blico.</div>';
+			}else
 				echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('actualizando archivo') .'</div>';
 		}
 	}
@@ -82,14 +66,10 @@
 			$rstPages = mysql_query($qryPages);
 			$rowPages = mysql_fetch_array($rstPages);
 			
-			if(unlink('../cloud_'. clear_for_file($rowPages['filename']) .'.php')){
-				$qryRemove = "DELETE FROM pages WHERE id = $id;";
-				if(mysql_query($qryRemove))
-					echo '<div class="success">Su p&aacute;gina se elimin&oacute; correctamente.</div>';
-				else
-					echo '<div class="error">Hubo un error al eliminarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('eliminando registro') .'</div>';
-			}else
-				echo '<div class="error">Hubo un error al eliminarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('quitando archivo') .'</div>';
+			if(mysql_query($qryRemove))
+				echo '<div class="success">Su p&aacute;gina se elimin&oacute; correctamente.</div>';
+			else
+				echo '<div class="error">Hubo un error al eliminarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('eliminando registro') .'</div>';
 			
 		}
 	}
@@ -169,12 +149,6 @@
 						<option value="en">English</option>
 					</select>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col" align="left" style="vertical-align: top;"><label for="filename">Nombre del archivo</label> <span class="text-error">*</span><br><span class="text-info">(No se admiten espacios, ni caract&eacute;res especiales)</span></span></div> <div class="col" align="left" style="vertical-align: top;"><input type="text" name="filename" id="filename" value="<?=(isset($rowEdit))?utf8_decode($rowEdit['filename']):''?>" /></div>
-			</div>
-			<div class="row">
-				<div class="col" align="left" style="vertical-align: top;"><label for="title">T&iacute;tulo</label> <span class="text-error">*</span></div><div class="col" align="left" style="vertical-align: top;"><input type="text" name="title" id="title" value="<?=(isset($rowEdit))?utf8_decode($rowEdit['title']):''?>" /></div>
 			</div>
 			<div class="row">
 				<div class="col" align="left" style="vertical-align: top;"><label for="body">Contenido</label></div>

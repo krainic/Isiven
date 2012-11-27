@@ -12,7 +12,7 @@ if (isset($_SESSION['id_entity'])) {
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>:: ISIVEN <?=$title?>::</title>
+		<title>:: ISIVEN <?=$title?> ::</title>
 		<link rel=StyleSheet href="lib/css/style.css" type="text/css" media=screen />
 	</head>
 	<body>
