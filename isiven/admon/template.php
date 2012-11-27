@@ -20,10 +20,11 @@ if (isset($_SESSION['id_entity'])) {
 		if (isset($_SESSION['id_entity'])) {
 		?>
 			<div class="menu">
-				<div class="col" style="border: none; width: 80%;">
+				<div class="col" style="border: none;">
 					<ul class="horizontal">
 						<li><a href="main.php">Principal</a></li>
-						<li><a href="pages.php">P&aacute;ginas</a></li>
+						<li><a href="pages.php">Nueva P&aacute;gina</a></li>
+						<li><a href="module_index.php">Módulo Inicio</a></li>
 					</ul>
 				</div>
 				<div class="col" align="right" style="border: none;">
