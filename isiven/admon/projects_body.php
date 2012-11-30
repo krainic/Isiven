@@ -6,13 +6,12 @@
 		if ($_REQUEST['title'] == '')
 			echo '<div class="error">El campo T&iacute;tulo es obligatorio.</div>';
 		else{
-			$parent_id = utf8_encode($_REQUEST['parent_id']);
 			$lang = utf8_encode($_REQUEST['lang']);
 			$filename = utf8_encode($_REQUEST['filename']);
 			$title = utf8_encode($_REQUEST['title']);
 			$body = utf8_encode('<fieldset><legend align="right">'. $title .'</legend>'. $_REQUEST['body'] .'</fieldset>');
 
-			$query = "INSERT INTO pages (parent_id, lang, title, filename, body, status_id, entities_id, date_admission)VALUES($parent_id, '$lang', '$title', '$filename', '$body', 2, $entity_id, NOW());";
+			$query = "INSERT INTO pages (lang, title, filename, body, status_id, entities_id, date_admission)VALUES('$lang', '$title', '$filename', '$body', 2, $entity_id, NOW());";
 			$result = mysql_query($query);
 			
 			if($result){
@@ -31,7 +30,6 @@
 		if ($_REQUEST['title'] == '')
 			echo '<div class="error">El campo T&iacute;tulo es obligatorio.</div>';
 		else{
-			$parent_id = utf8_encode($_REQUEST['parent_id']);
 			$lang = utf8_encode($_REQUEST['lang']);
 			$filename = utf8_encode($_REQUEST['filename']);
 			$title = utf8_encode($_REQUEST['title']);
@@ -40,7 +38,7 @@
 			$status = $_REQUEST['editStatus'];
 			$id = $_REQUEST['editId'];
 
-			$query = "UPDATE pages SET parent_id='$parent_id', lang='$lang', title='$title', filename='$filename', body='$body', status_id=$status, entities_id=$entity_id, date_modified=NOW() WHERE id = $id;";
+			$query = "UPDATE pages SET lang='$lang', title='$title', filename='$filename', body='$body', status_id=$status, entities_id=$entity_id, date_modified=NOW() WHERE id = $id;";
 			$result = mysql_query($query);
 			
 			if($result){
@@ -173,9 +171,6 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col" align="left" style="vertical-align: top;"><label for="parent_id">Nodo</label><br><span class="text-info">En &eacute;ste campo indique el ID del que quiere que sea submenu <b>(Tiene que ser un n&uacute;mero)</b></span></div><div class="col" align="left" style="vertical-align: top;"><input type="text" name="parent_id" id="parent_id" value="<?=(isset($rowEdit))?utf8_decode($rowEdit['parent_id']):''?>" /></div>
-			</div>
-			<div class="row">
 				<div class="col" align="left" style="vertical-align: top;"><label for="filename">Nombre del archivo</label> <span class="text-error">*</span><br><span class="text-info">(No se admiten espacios, ni caract&eacute;res especiales)</span></span></div> <div class="col" align="left" style="vertical-align: top;"><input type="text" name="filename" id="filename" value="<?=(isset($rowEdit))?utf8_decode($rowEdit['filename']):''?>" /></div>
 			</div>
 			<div class="row">
@@ -208,8 +203,6 @@
 <div align="center" style="padding: 10px;">
 <div align="center" class="table">
 	<div class="row">
-		<div class="col" align="center"><b>ID</b></div>
-		<div class="col" align="center"><b>Nodo</b></div>
 		<div class="col" align="center"><b>Idioma</b></div>
 		<div class="col" align="center"><b>T&iacute;tulo</b></div>
 		<div class="col" align="center"><b>Estado</b></div>
@@ -226,8 +219,6 @@
 		$rowStatus = mysql_fetch_array($rstStatus);
 	?>
 	<div class="row">
-		<div class="col" align="center"><?=utf8_decode($rowPages['id'])?></div>
-		<div class="col" align="center"><?=utf8_decode($rowPages['parent_id'])?></div>
 		<div class="col" align="center"><?=utf8_decode($rowPages['lang'])?></div>
 		<div class="col" align="center"><?=utf8_decode($rowPages['title'])?></div>
 		<div class="col <?=($status_id == 2)?"text-process":($status_id == 3)?"text-success":($status_id == 4)?"text-error":""?>" align="center" title="<?=utf8_decode($rowStatus['description'])?>"><?=utf8_decode($rowStatus['name'])?></div>
