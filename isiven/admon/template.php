@@ -25,6 +25,7 @@ if (isset($_SESSION['id_entity'])) {
 						<li><a href="main.php">Principal</a></li>
 						<li><a href="pages.php">Nueva P&aacute;gina</a></li>
 						<li><a href="module_index.php">Módulo Inicio</a></li>
+						<li><a href="indicators.php">Indicadores</a></li>
 					</ul>
 				</div>
 				<div class="col" align="right" style="border: none;">

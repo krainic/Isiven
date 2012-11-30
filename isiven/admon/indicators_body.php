@@ -2,81 +2,58 @@
 <?php
 	$entity_id =$_SESSION['id_entity'];
 	
-	if(($_POST['enviar'])){
-		if(upload_image('files/imgs/gallery','uploadImage')){
-			$lang = utf8_encode($_REQUEST['lang']);
-			$filename = utf8_encode($_REQUEST['filename']);
-			$title = utf8_encode($_REQUEST['title']);
-			$body = utf8_encode($_REQUEST['body']);
-			
-			echo '<div class="success">La imagen se a subi&oacute; correctamente. Ahora debe terminar de llenar los dem&aacute;s campos para que se publique en la galer&iacute;a.</div>';
-		}
-	}
-	
 	if(isset($_REQUEST['save'])){
-		if ($_REQUEST['image'] == '')
-			echo '<div class="error">La imagen es obligatoria.</div>';
+		if ($_REQUEST['title'] == '' || $_REQUEST['price'] == '')
+			echo '<div class="error">El campo T&iacute;tulo y Precio son obligatorio.</div>';
 		else{
 			$lang = utf8_encode($_REQUEST['lang']);
+			$price = utf8_encode($_REQUEST['price']);
 			$title = utf8_encode($_REQUEST['title']);
-			$body = utf8_encode($_REQUEST['body']);
-			$image = utf8_encode($_REQUEST['image']);
 
-			$query = "INSERT INTO gallery (lang, title, body, image, status_id, date_admission)VALUES('$lang', '$title', '$body', '$image', 2, NOW());";
+			$query = "INSERT INTO indicators (lang, title, price, status_id, date_admission)VALUES('$lang', '$title', '$price', 2, NOW());";
 			$result = mysql_query($query);
 			
-			if($result){					
-				echo '<div class="success">La im&aacute;gen se a guardado correctamente.</div>';
+			if($result){
+				echo '<div class="success">El indicador se ha guardado correctamente.</div>';
 			}else
 				echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('agregando archivo') .'</div>';
 		}
 	}
 	if(isset($_REQUEST['edit'])){
-		if ($_REQUEST['image'] == '')
-			echo '<div class="error">La im&aacute;gen es obligatoria.</div>';
+		if ($_REQUEST['title'] == '' || $_REQUEST['price'] == '')
+			echo '<div class="error">El campo T&iacute;tulo es obligatorio.</div>';
 		else{
 			$lang = utf8_encode($_REQUEST['lang']);
-			$image = utf8_encode($_REQUEST['image']);
+			$price = utf8_encode($_REQUEST['price']);
 			$title = utf8_encode($_REQUEST['title']);
-			$body = utf8_encode($_REQUEST['body']);
-			$oldFile = utf8_encode($_REQUEST['editFile']);
 			$status = $_REQUEST['editStatus'];
 			$id = $_REQUEST['editId'];
 
-			$query = "UPDATE gallery SET lang='$lang', title='$title', body='$body', image='$image', status_id=$status, date_modified=NOW() WHERE id = $id;";
+			$query = "UPDATE indicators SET lang='$lang', title='$title', price='$price', status_id=$status, date_modified=NOW() WHERE id = $id;";
 			$result = mysql_query($query);
 			
-			if(unlink('files/imgs/gallery/'. $oldFile)){
-				if($result){
-					echo '<div class="success">La im&aacute;gen se a editado correctamente.</div>';
-				}else
-					echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('actualizando archivo') .'</div>';
-			}
+			if($result){
+				echo '<div class="success">El indicador se a editado correctamente.</div>';
+			}else
+				echo '<div class="error">Hubo un error al guardarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('actualizando archivo') .'</div>';
 		}
 	}
 	if(isset($_REQUEST['mod'])){
 		if ($_REQUEST['mod'] == 'edit') {
 			$id = $_REQUEST['id'];
 			
-			$qryEdit = "SELECT * FROM gallery WHERE id = $id AND status_id <> 4;";
+			$qryEdit = "SELECT * FROM indicators WHERE id = $id AND status_id <> 4;";
 			$rstEdit = mysql_query($qryEdit);
 			$rowEdit = mysql_fetch_array($rstEdit);
 		}elseif($_REQUEST['mod'] == 'remove'){
 			$id = $_REQUEST['id'];
 			
-			$rmvGallery = "DELETE FROM gallery WHERE id = $id;";
+			$qryRemove = "DELETE FROM indicators WHERE id = $id;";
+			if(mysql_query($qryRemove))
+				echo '<div class="success">El indicador se elimin&oacute; correctamente.</div>';
+			else
+				echo '<div class="error">Hubo un error al eliminarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('eliminando registro') .'</div>';
 			
-			$qryGallery = "SELECT * FROM gallery WHERE id = $id;";
-			$rstGallery = mysql_query($qryGallery);
-			$rowGallery = mysql_fetch_array($rstGallery);
-			
-			if(unlink('files/imgs/gallery/'. $rowGallery['image'])){
-				if(mysql_query($rmvGallery))
-					echo '<div class="success">La im&aacute;gen se elimin&oacute; correctamente.</div>';
-				else
-					echo '<div class="error">Hubo un error al eliminarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('eliminando registro') .'</div>';
-			}else
-				echo '<div class="error">Hubo un error al eliminarse por favor comuniquese con el administrador del sitio <a href="mailto:contacto@krainic.com" class="bgWhite">contacto@krainic.com</a>. <br>Referencia: '. base64_encode('eliminando imagen') .'</div>';
 		}
 	}
 ?>
@@ -135,22 +112,8 @@
 
 </head>
 <body role="application">
-<div align="center" style="border: 1px solid #E5E5E5; padding: 10px; margin: 10px;">
-	<form id="form1" enctype="multipart/form-data" method="post">
-		  <label>Im&aacute;gen
-		<input id="uploadImage" name="uploadImage" type="file" />
-		  </label>
-		<input id="enviar" name="enviar" type="submit" value="Subir" />
-	</form>
-	<?php if($_FILES['uploadImage']['name'] || isset($rowEdit)){?>
-	<div>
-		<img src="files/imgs/gallery/<?=(isset($rowEdit))?utf8_decode($rowEdit['image']):utf8_decode((date('Ymdhis')). '_' .$_FILES['uploadImage']['name'])?>" width="870" height="400" style="border:1px solid #E5E5E5; padding: 10px; margin: 10px;" />
-	</div>
-	<?php }?>
-</div>
 <div align="center">
 	<form method="post">
-		<input type="hidden" name="image" value="<?=(isset($rowEdit))?utf8_decode($rowEdit['image']):utf8_decode((date('Ymdhis')). '_' .$_FILES['uploadImage']['name'])?>" />
 		<div class="table">
 			<div class="row">
 				<div class="col" align="left" style="vertical-align: top;"><label for="lang">Idioma</label></div>
@@ -171,21 +134,16 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col" align="left" style="vertical-align: top;"><label for="title">T&iacute;tulo</label></div> <div class="col" align="left" style="vertical-align: top;"><input type="text" name="title" id="title" value="<?=(isset($rowEdit))?utf8_decode($rowEdit['title']):''?>" /></div>
+				<div class="col" align="left" style="vertical-align: top;"><label for="title">T&iacute;tulo</label> <span class="text-error">*</span></div><div class="col" align="left" style="vertical-align: top;"><input type="text" name="title" id="title" value="<?=(isset($rowEdit))?utf8_decode($rowEdit['title']):''?>" /></div>
 			</div>
 			<div class="row">
-				<div class="col" align="left" style="vertical-align: top;"><label for="body">Contenido</label></div>
-				<div class="col" align="left" style="vertical-align: top;">
-					<textarea id="body" name="body" rows="15" cols="80" style="width: 100%">
-						<?=(isset($rowEdit))?utf8_decode($rowEdit['body']):''?>
-					</textarea>
-				</div>
+				<div class="col" align="left" style="vertical-align: top;"><label for="Price">Precio</label> <span class="text-error">*</span><br><span class="text-info"></span></span></div> <div class="col" align="left" style="vertical-align: top;"><input type="text" name="price" id="price" value="<?=(isset($rowEdit))?utf8_decode($rowEdit['price']):''?>" /></div>
 			</div>
 			<div class="row">
 				<div class="col">&nbsp;</div>
 				<div class="col" align="right">
 					<?php if(isset($rowEdit)){?>
-					<input type="hidden" name="editImage" value="<?=utf8_decode($rowEdit['image'])?>" />
+					<input type="hidden" name="editFile" value="<?=utf8_decode($rowEdit['filename'])?>" />
 					<input type="hidden" name="editStatus" value="<?=$rowEdit['status_id']?>" />
 					<input type="hidden" name="editId" value="<?=$rowEdit['id']?>" />
 					<input type="submit" name="edit" value="Editar" />
@@ -201,11 +159,12 @@
 <div align="center" class="table">
 	<div class="row">
 		<div class="col" align="center"><b>Idioma</b></div>
-		<div class="col" align="center"><b>Im&aacute;gen</b></div>
+		<div class="col" align="center"><b>T&iacute;tulo</b></div>
+		<div class="col" align="center"><b>Precio</b></div>
 		<div class="col" align="center"><b>Acciones</b></div>
 	</div>
 	<?php
-	$qryPages = "SELECT * FROM gallery WHERE status_id <> 4;";
+	$qryPages = "SELECT * FROM indicators WHERE status_id <> 4;";
 	$rstPages = mysql_query($qryPages);
 	
 	while($rowPages = mysql_fetch_array($rstPages)){
@@ -216,7 +175,8 @@
 	?>
 	<div class="row">
 		<div class="col" align="center"><?=utf8_decode($rowPages['lang'])?></div>
-		<div class="col" align="center"><img src="files/imgs/gallery/<?=utf8_decode($rowPages['image'])?>" width="250" style="vertical-align: middle;border:1px solid #E5E5E5; padding: 10px; margin: 10px;" /></div>
+		<div class="col" align="center"><?=utf8_decode($rowPages['title'])?></div>
+		<div class="col" align="center"><?=utf8_decode($rowPages['price'])?></div>
 		<div class="col" align="center">
 			<a href="?mod=edit&id=<?=$rowPages['id']?>" class="bgWhite">Editar</a> -
 			<a href="?mod=remove&id=<?=$rowPages['id']?>" class="bgWhite">Quitar</a> -
