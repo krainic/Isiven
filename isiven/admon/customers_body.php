@@ -3,7 +3,7 @@
 	$entity_id =$_SESSION['id_entity'];
 	
 	if(($_POST['enviar'])){
-		if(upload_image('files/imgs/gallery','uploadImage')){
+		if(upload_image('files/imgs/customers','uploadImage')){
 			echo '<div class="success">La imagen se a subi&oacute; correctamente. Ahora debe terminar de llenar los dem&aacute;s campos para que se publique en la galer&iacute;a.</div>';
 		}
 	}
@@ -12,12 +12,11 @@
 		if ($_REQUEST['image'] == '')
 			echo '<div class="error">La imagen es obligatoria.</div>';
 		else{
-			$lang = utf8_encode($_REQUEST['lang']);
-			$title = utf8_encode($_REQUEST['title']);
-			$body = utf8_encode($_REQUEST['body']);
+			$url = utf8_encode($_REQUEST['url']);
+			$name = utf8_encode($_REQUEST['name']);
 			$image = utf8_encode($_REQUEST['image']);
 
-			$query = "INSERT INTO gallery (lang, title, body, image, status_id, date_admission)VALUES('$lang', '$title', '$body', '$image', 2, NOW());";
+			$query = "INSERT INTO customers (uri, name, image, status_id, date_admission)VALUES('$url', '$name', '$image', 2, NOW());";
 			$result = mysql_query($query);
 			
 			if($result){					
@@ -30,18 +29,17 @@
 		if ($_REQUEST['image'] == '')
 			echo '<div class="error">La im&aacute;gen es obligatoria.</div>';
 		else{
-			$lang = utf8_encode($_REQUEST['lang']);
+			$url = utf8_encode($_REQUEST['url']);
 			$image = utf8_encode($_REQUEST['image']);
-			$title = utf8_encode($_REQUEST['title']);
-			$body = utf8_encode($_REQUEST['body']);
+			$name = utf8_encode($_REQUEST['name']);
 			$oldFile = utf8_encode($_REQUEST['editFile']);
 			$status = $_REQUEST['editStatus'];
 			$id = $_REQUEST['editId'];
 
-			$query = "UPDATE gallery SET lang='$lang', title='$title', body='$body', image='$image', status_id=$status, date_modified=NOW() WHERE id = $id;";
+			$query = "UPDATE customers SET uri='$url', name='$name', image='$image', status_id=$status, date_modified=NOW() WHERE id = $id;";
 			$result = mysql_query($query);
 			
-			if(unlink('files/imgs/gallery/'. $oldFile)){
+			if(unlink('files/imgs/customers/'. $oldFile)){
 				if($result){
 					echo '<div class="success">La im&aacute;gen se a editado correctamente.</div>';
 				}else
@@ -53,19 +51,19 @@
 		if ($_REQUEST['mod'] == 'edit') {
 			$id = $_REQUEST['id'];
 			
-			$qryEdit = "SELECT * FROM gallery WHERE id = $id AND status_id <> 4;";
+			$qryEdit = "SELECT * FROM customers WHERE id = $id AND status_id <> 4;";
 			$rstEdit = mysql_query($qryEdit);
 			$rowEdit = mysql_fetch_array($rstEdit);
 		}elseif($_REQUEST['mod'] == 'remove'){
 			$id = $_REQUEST['id'];
 			
-			$rmvGallery = "DELETE FROM gallery WHERE id = $id;";
+			$rmvGallery = "DELETE FROM customers WHERE id = $id;";
 			
-			$qryGallery = "SELECT * FROM gallery WHERE id = $id;";
+			$qryGallery = "SELECT * FROM customers WHERE id = $id;";
 			$rstGallery = mysql_query($qryGallery);
 			$rowGallery = mysql_fetch_array($rstGallery);
 			
-			if(unlink('files/imgs/gallery/'. $rowGallery['image'])){
+			if(unlink('files/imgs/customers/'. $rowGallery['image'])){
 				if(mysql_query($rmvGallery))
 					echo '<div class="success">La im&aacute;gen se elimin&oacute; correctamente.</div>';
 				else
@@ -139,7 +137,7 @@
 	</form>
 	<?php if($_FILES['uploadImage']['name'] || isset($rowEdit)){?>
 	<div>
-		<img src="files/imgs/gallery/<?=($_FILES['uploadImage']['name'])?utf8_decode((date('Ymdhis')). '_' .$_FILES['uploadImage']['name']):utf8_decode($rowEdit['image'])?>" width="870" height="400" style="border:1px solid #E5E5E5; padding: 10px; margin: 10px;" />
+		<img src="files/imgs/customers/<?=($_FILES['uploadImage']['name'])?utf8_decode((date('Ymdhis')). '_' .$_FILES['uploadImage']['name']):utf8_decode($rowEdit['image'])?>" width="400" style="border:1px solid #E5E5E5; padding: 10px; margin: 10px;" />
 	</div>
 	<?php }?>
 </div>
@@ -148,33 +146,10 @@
 		<input type="hidden" name="image" value="<?=($_FILES['uploadImage']['name'])?utf8_decode((date('Ymdhis')). '_' .$_FILES['uploadImage']['name']):utf8_decode($rowEdit['image'])?>" />
 		<div class="table">
 			<div class="row">
-				<div class="col" align="left" style="vertical-align: top;"><label for="lang">Idioma</label></div>
-				<div class="col" align="left" style="vertical-align: top;">
-					<select name="lang" id="lang">
-						<?php if(isset($rowEdit)){?>
-						<option value="<?=$rowEdit['lang']?>">
-							<?php if($rowEdit['lang'] == 'es'){
-								echo "Espa&ntilde;ol";
-							}elseif($rowEdit['lang'] == 'en'){
-								echo "English";
-							}?>
-						</option>
-						<?php }?>
-						<option value="es">Espa&ntilde;ol</option>
-						<option value="en">English</option>
-					</select>
-				</div>
+				<div class="col" align="left" style="vertical-align: top;"><label for="url">Sitio Web</label></div> <div class="col" align="left" style="vertical-align: top;"><input type="text" name="url" id="url" value="<?=(isset($rowEdit))?utf8_decode($rowEdit['uri']):'http://'?>" /></div>
 			</div>
 			<div class="row">
-				<div class="col" align="left" style="vertical-align: top;"><label for="title">T&iacute;tulo</label></div> <div class="col" align="left" style="vertical-align: top;"><input type="text" name="title" id="title" value="<?=(isset($rowEdit))?utf8_decode($rowEdit['title']):''?>" /></div>
-			</div>
-			<div class="row">
-				<div class="col" align="left" style="vertical-align: top;"><label for="body">Contenido</label></div>
-				<div class="col" align="left" style="vertical-align: top;">
-					<textarea id="body" name="body" rows="15" cols="80" style="width: 100%">
-						<?=(isset($rowEdit))?utf8_decode($rowEdit['body']):''?>
-					</textarea>
-				</div>
+				<div class="col" align="left" style="vertical-align: top;"><label for="name">Nombre</label></div> <div class="col" align="left" style="vertical-align: top;"><input type="text" name="name" id="name" value="<?=(isset($rowEdit))?utf8_decode($rowEdit['name']):''?>" /></div>
 			</div>
 			<div class="row">
 				<div class="col">&nbsp;</div>
@@ -195,23 +170,21 @@
 <div align="center" style="padding: 10px;">
 <div align="center" class="table">
 	<div class="row">
-		<div class="col" align="center"><b>Idioma</b></div>
 		<div class="col" align="center"><b>Im&aacute;gen</b></div>
 		<div class="col" align="center"><b>Acciones</b></div>
 	</div>
 	<?php
-	$qryPages = "SELECT * FROM gallery WHERE status_id <> 4;";
+	$qryPages = "SELECT * FROM customers WHERE status_id <> 4;";
 	$rstPages = mysql_query($qryPages);
 	
 	while($rowPages = mysql_fetch_array($rstPages)){
 		$status_id = $rowPages['status_id'];
-		$qryStatus =  "SELECT * FROM status WHERE id = $status_id AND status = 1;";
+		$qryStatus =  "SELECT * FROM customers WHERE id = $status_id AND status = 1;";
 		$rstStatus = mysql_query($qryStatus);
 		$rowStatus = mysql_fetch_array($rstStatus);
 	?>
 	<div class="row">
-		<div class="col" align="center"><?=utf8_decode($rowPages['lang'])?></div>
-		<div class="col" align="center"><img src="files/imgs/gallery/<?=utf8_decode($rowPages['image'])?>" width="250" style="vertical-align: middle;border:1px solid #E5E5E5; padding: 10px; margin: 10px;" /></div>
+		<div class="col" align="center"><a href="<?=utf8_decode($rowPages['uri'])?>" title="<?=utf8_decode($rowPages['name'])?>" target="_blank"><img src="files/imgs/customers/<?=utf8_decode($rowPages['image'])?>" width="150" style="vertical-align: middle;border:1px solid #E5E5E5; padding: 10px; margin: 10px;" border="0" /></a></div>
 		<div class="col" align="center">
 			<a href="?mod=edit&id=<?=$rowPages['id']?>" class="bgWhite">Editar</a> -
 			<a href="?mod=remove&id=<?=$rowPages['id']?>" class="bgWhite">Quitar</a> -
