@@ -4,11 +4,6 @@
 	
 	if(($_POST['enviar'])){
 		if(upload_image('files/imgs/gallery','uploadImage')){
-			$lang = utf8_encode($_REQUEST['lang']);
-			$filename = utf8_encode($_REQUEST['filename']);
-			$title = utf8_encode($_REQUEST['title']);
-			$body = utf8_encode($_REQUEST['body']);
-			
 			echo '<div class="success">La imagen se a subi&oacute; correctamente. Ahora debe terminar de llenar los dem&aacute;s campos para que se publique en la galer&iacute;a.</div>';
 		}
 	}
@@ -144,13 +139,13 @@
 	</form>
 	<?php if($_FILES['uploadImage']['name'] || isset($rowEdit)){?>
 	<div>
-		<img src="files/imgs/gallery/<?=(isset($rowEdit))?utf8_decode($rowEdit['image']):utf8_decode((date('Ymdhis')). '_' .$_FILES['uploadImage']['name'])?>" width="870" height="400" style="border:1px solid #E5E5E5; padding: 10px; margin: 10px;" />
+		<img src="files/imgs/gallery/<?=($_FILES['uploadImage']['name'])?utf8_decode((date('Ymdhis')). '_' .$_FILES['uploadImage']['name']):utf8_decode($rowEdit['image'])?>" width="870" height="400" style="border:1px solid #E5E5E5; padding: 10px; margin: 10px;" />
 	</div>
 	<?php }?>
 </div>
 <div align="center">
 	<form method="post">
-		<input type="hidden" name="image" value="<?=(isset($rowEdit))?utf8_decode($rowEdit['image']):utf8_decode((date('Ymdhis')). '_' .$_FILES['uploadImage']['name'])?>" />
+		<input type="hidden" name="image" value="<?=($_FILES['uploadImage']['name'])?utf8_decode((date('Ymdhis')). '_' .$_FILES['uploadImage']['name']):utf8_decode($rowEdit['image'])?>" />
 		<div class="table">
 			<div class="row">
 				<div class="col" align="left" style="vertical-align: top;"><label for="lang">Idioma</label></div>
